@@ -1,4 +1,4 @@
 export * from './sence'
-export * from './cube'
+export * from './mesh'
 export * from './camara'
 export * from './render'

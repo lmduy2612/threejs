@@ -1,27 +1,35 @@
 import * as dat from 'dat.gui';
 
-const controls = {
+const controlsRotation = {
   rotationX: 0,
   rotationY: 0,
   rotationZ: 0,
+};
+const controlsRotation2 = {
+  rotationZ2: 0,
 };
 
 const convertDegToRad = (deg) => {
   return (deg * Math.PI) / 180;
 };
 
-const createControlsGui = ({cube, render}) => {
+const createControlsGui = ({ cube, cube2, render }) => {
   const gui = new dat.GUI();
-  gui.add(controls, 'rotationX', 0, 360).onChange((value) => {
+  gui.add(controlsRotation, 'rotationX', 0, 360).onChange((value) => {
     cube.rotation.x = convertDegToRad(value);
     render();
   });
-  gui.add(controls, 'rotationY', 0, 360).onChange((value) => {
+  gui.add(controlsRotation, 'rotationY', 0, 360).onChange((value) => {
     cube.rotation.y = convertDegToRad(value);
     render();
   });
-  gui.add(controls, 'rotationZ', 0, 360).onChange((value) => {
+  gui.add(controlsRotation, 'rotationZ', 0, 360).onChange((value) => {
     cube.rotation.z = convertDegToRad(value);
+    render();
+  });
+
+  gui.add(controlsRotation2, 'rotationZ2', 0, 360).onChange((value) => {
+    cube2.rotation.z = convertDegToRad(value);
     render();
   });
 
