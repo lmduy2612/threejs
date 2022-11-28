@@ -7,8 +7,11 @@ import {
   createRender,
 } from './elements';
 
-function App() {
-  const refContainer = useRef(null);
+import { createControlsGui } from './controls';
+
+let renderer;
+
+const init = () => {
   const scene = createSence();
 
   const cube = createCube();
@@ -17,12 +20,27 @@ function App() {
   const camera = createCamara();
   camera.lookAt(scene.position);
 
-  const renderer = createRender();
-  renderer.render(scene, camera);
+  renderer = createRender();
+  const render = () => renderer.render(scene, camera);
+
+  createControlsGui({
+    render,
+    cube,
+  });
+
+  render();
+};
+
+init();
+
+function App() {
+  const refContainer = useRef(null);
 
   useEffect(() => {
-    refContainer.current.appendChild(renderer.domElement);
-  }, []);
+    if (refContainer.current) {
+      refContainer.current.appendChild(renderer.domElement);
+    }
+  }, [refContainer]);
 
   return (
     <div className='App'>
