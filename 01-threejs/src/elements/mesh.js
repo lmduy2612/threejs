@@ -1,6 +1,6 @@
 import { BoxGeometry, Mesh, MeshNormalMaterial, SphereGeometry } from 'three';
 
-const createCube = () => {
+const createMesh = () => {
   const cubeGeometry = new BoxGeometry(8, 8, 8);
   const cubeMaterial = new MeshNormalMaterial(100);
   const cube = new Mesh(cubeGeometry, cubeMaterial);
@@ -15,7 +15,7 @@ const createCube = () => {
   return cube;
 };
 
-const createCube2 = () => {
+const createMesh2 = () => {
   const cubeGeometry = new SphereGeometry(5, 5, 5);
   const cubeMaterial = new MeshNormalMaterial();
   const cube = new Mesh(cubeGeometry, cubeMaterial);
@@ -24,4 +24,4 @@ const createCube2 = () => {
   return cube;
 };
 
-export { createCube, createCube2 };
+export { createMesh, createMesh2 };

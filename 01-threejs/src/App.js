@@ -1,73 +1,64 @@
 import { useEffect, useRef } from 'react';
-
+import { AxesHelper } from 'three';
 import {
   createCamara,
-  createCube,
   createSence,
   createRender,
-  createCube2,
+  createMesh,
+  createMesh2,
 } from './elements';
-
-import { createControlsGui } from './controls';
-import { AxesHelper } from 'three';
+import { createControlsGui } from './controls-gui';
 
 let renderer;
 
 const init = () => {
-  // init sence
+  /**
+   * Init element threeJs
+   */
+  // construct sence
   const scene = createSence();
 
-  const axesHelper = new AxesHelper(60);
-  scene.add(axesHelper);
+  // mesh lists
+  const mesh1 = createMesh();
+  scene.add(mesh1);
+  const mesh2 = createMesh2();
+  scene.add(mesh2);
 
-  const cube = createCube();
-  scene.add(cube);
-
-  const cube2 = createCube2();
-  scene.add(cube2);
-
+  // create camara
   const camera = createCamara();
   camera.lookAt(scene.position);
 
+  // render
   renderer = createRender();
 
-  const onUpdate = () => {
-    cube.tick();
-  };
+  /**
+   * Help X, Y, Z
+   */
+  const axesHelper = new AxesHelper(60);
+  scene.add(axesHelper);
+
+  /**
+   * Render
+   */
+  // const onAnimate = () => {
+  //   mesh1.tick();
+  // };
 
   const render = () => {
-    // onUpdate();
     renderer.render(scene, camera);
-    requestAnimationFrame(render);
+    // onAnimate();
+    // requestAnimationFrame(render);
   };
+  render();
 
-  // add control GUI
+  /**
+   * Add control GUI
+   */
   createControlsGui({
     render,
-    cube,
-    cube2,
+    mesh1,
+    mesh2,
   });
-
-  // resize
-  const onResize = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const aspect = width / height;
-    camera.aspect = aspect;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-  };
-
-  const resize = () => {
-    window.addEventListener('resize', () => {
-      onResize();
-      render();
-    });
-  };
-
-  // handle list function excute
-  render();
-  resize();
 };
 
 init();
