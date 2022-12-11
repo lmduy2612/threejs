@@ -13,16 +13,6 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
 const twoPi = Math.PI * 2
 
-/**
- * Promisify font loading.
- */
-function loadFont(url) {
-  const loader = new FontLoader()
-  return new Promise((resolve, reject) => {
-    loader.load(url, resolve, undefined, reject)
-  })
-}
-
 export const addMeshes = (scene) => {
   addMeshCube(scene)
   addMeshCylinder(scene)
@@ -100,6 +90,16 @@ const addMeshCylinder = (scene) => {
   scene.add(mesh)
 }
 
+/**
+ * Promisify font loading.
+ */
+function loadFont(url) {
+  const loader = new FontLoader()
+  return new Promise((resolve, reject) => {
+    loader.load(url, resolve, undefined, reject)
+  })
+}
+
 const addText = async (scene) => {
   const font = await loadFont(
     'https://static.lockex1987.com/learn-threejs/fonts/helvetiker/helvetiker_regular.typeface.json'
@@ -116,7 +116,7 @@ const addText = async (scene) => {
   })
   const material = new MeshPhongMaterial({
     side: BackSide,
-    color: '#1a1aff' 
+    color: '#1a1aff',
   })
   const mesh = new Mesh(geometry, material)
   geometry.computeBoundingBox()
