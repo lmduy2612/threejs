@@ -11,8 +11,11 @@ import {
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
+import * as dat from 'dat.gui'
+
 const twoPi = Math.PI * 2
 
+// Add lists meshes
 export const addMeshes = (scene) => {
   addMeshCube(scene)
   addMeshCylinder(scene)
@@ -23,12 +26,22 @@ export const addMeshes = (scene) => {
 // Hình vuông
 const addMeshCube = (scene) => {
   const geometry = new BoxGeometry(3, 1, 3)
-  const material = new MeshNormalMaterial()
+  // const material = new MeshNormalMaterial()
+  const material = new MeshPhongMaterial({
+    color: 0x049ef4,
+    emissive: 0xb71cd9,
+    specular: 0x444444
+  })
   const mesh = new Mesh(geometry, material)
   mesh.position.x = -20
   mesh.position.y = 2
   mesh.position.z = 10
   scene.add(mesh)
+
+  const gui = new dat.GUI({
+    width: 300,
+  })
+  guiMeshPhongMaterial(gui, material)
 }
 
 // Hình cầu
@@ -90,9 +103,7 @@ const addMeshCylinder = (scene) => {
   scene.add(mesh)
 }
 
-/**
- * Promisify font loading.
- */
+// Text
 function loadFont(url) {
   const loader = new FontLoader()
   return new Promise((resolve, reject) => {
@@ -125,4 +136,36 @@ const addText = async (scene) => {
   mesh.position.y = 2
   mesh.position.z = -2
   scene.add(mesh)
+}
+
+/**
+ * Xử lý khi người dùng chọn lại màu sắc trên GUI.
+ * @param {THREE.Color} color Đối tượng màu sắc
+ * @returns {Function} Hàm để truyền vào onChange của GUI
+ */
+function handleColorChange(color) {
+  return function (value) {
+    if (typeof value === 'string') {
+      value = value.replace('#', '0x')
+    }
+    color.setHex(value)
+  }
+}
+
+function guiMeshPhongMaterial(gui, material) {
+  const data = {
+    color: material.color.getHex(),
+    emissive: material.emissive.getHex(),
+    specular: material.specular.getHex(),
+  }
+  const folder = gui.addFolder('MeshPhongMaterial')
+  folder.addColor(data, 'color').onChange(handleColorChange(material.color))
+  folder
+    .addColor(data, 'emissive')
+    .onChange(handleColorChange(material.emissive))
+  folder
+    .addColor(data, 'specular')
+    .onChange(handleColorChange(material.specular))
+  folder.add(material, 'shininess', 0, 100)
+  folder.open()
 }

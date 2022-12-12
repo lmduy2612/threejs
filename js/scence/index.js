@@ -9,6 +9,8 @@ import {
   AxesHelper,
 } from 'three'
 import * as dat from 'dat.gui'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
 import { addMeshes } from './meshes'
 
 class ThreejsSence {
@@ -29,14 +31,23 @@ class ThreejsSence {
     this.controls = this.createControls(this.scene)
     this.createControlsGui()
 
+    this.createOrbitControls()
+    this.createOrbitControlsGui()
+
     addMeshes(this.scene)
   }
 
+  /**
+   * =================== Sence =========================
+   */
   createScene() {
     const scene = new Scene()
     return scene
   }
 
+  /**
+   * =================== Camara =========================
+   */
   createCamera(canvas) {
     const width = canvas.clientWidth
     const height = canvas.clientHeight
@@ -62,6 +73,9 @@ class ThreejsSence {
     return camera
   }
 
+  /**
+   * =================== Renderer =========================
+   */
   createRenderer(canvas) {
     const renderer = new WebGLRenderer({
       canvas,
@@ -75,6 +89,9 @@ class ThreejsSence {
     return renderer
   }
 
+  /**
+   * =================== Plane =========================
+   */
   createPlane() {
     const planeGeometry = new PlaneGeometry(50, 30, 1, 1)
     const planeMaterial = new MeshBasicMaterial({
@@ -90,6 +107,9 @@ class ThreejsSence {
     return planeMesh
   }
 
+  /**
+   * =================== Controls =========================
+   */
   createControls(scene) {
     const controls = {
       numberOfObjects: scene.children.length,
@@ -102,8 +122,6 @@ class ThreejsSence {
     const gui = new dat.GUI({
       width: 300,
     })
-
-    // Control
     gui.add(this.controls, 'numberOfObjects').listen().name('Number object')
     gui.add(this.controls, 'rotateCamera').name('Rotate camara')
 
@@ -122,6 +140,9 @@ class ThreejsSence {
     cameraProjectionGui.open()
   }
 
+  /**
+   * =================== Render =========================
+   */
   update(ms) {
     if (this.controls.rotateCamera) {
       this.camera.tick(ms)
@@ -134,6 +155,9 @@ class ThreejsSence {
     requestAnimationFrame(this.render.bind(this))
   }
 
+  /**
+   * =================== Resize =========================
+   */
   handleResize() {
     window.addEventListener('resize', () => {
       this.onResize()
@@ -150,8 +174,40 @@ class ThreejsSence {
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(width, height, false)
   }
+
+  /**
+   * =================== Orbit controls =========================
+   */
+  createOrbitControls() {
+    this.orbitControls = new OrbitControls(
+      this.camera,
+      this.renderer.domElement
+    )
+    this.orbitControls.enableDamping = true
+    this.orbitControls.autoRotate = false
+
+    this.orbitControls.addEventListener('change', () => {
+      if (!this.controls.useAnimationLoop) {
+        this.renderer.render(this.scene, this.camera)
+      }
+    })
+  }
+
+  createOrbitControlsGui() {
+    this.controls = {
+      useAnimationLoop: true,
+    }
+
+    const gui = new dat.GUI()
+    gui.add(this.controls, 'useAnimationLoop')
+    gui.add(this.orbitControls, 'enableDamping')
+    gui.add(this.orbitControls, 'autoRotate')
+  }
 }
 
+/**
+ * =================== Load document =========================
+ */
 window.addEventListener('load', () => {
   new ThreejsSence(document.querySelector('#webglOutput'))
 })
