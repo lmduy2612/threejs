@@ -7,6 +7,9 @@ import {
   MeshBasicMaterial,
   Mesh,
   AxesHelper,
+  DirectionalLight,
+  DirectionalLightHelper,
+  CameraHelper,
 } from 'three'
 import * as dat from 'dat.gui'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -33,6 +36,8 @@ class ThreejsSence {
 
     this.createOrbitControls()
     this.createOrbitControlsGui()
+
+    this.createDirectionalLight()
 
     addMeshes(this.scene)
   }
@@ -151,6 +156,8 @@ class ThreejsSence {
 
   render(ms) {
     this.update(ms)
+    this.orbitControls.update()
+    this.directionalLightHelper.update()
     this.renderer.render(this.scene, this.camera)
     requestAnimationFrame(this.render.bind(this))
   }
@@ -202,6 +209,33 @@ class ThreejsSence {
     gui.add(this.controls, 'useAnimationLoop')
     gui.add(this.orbitControls, 'enableDamping')
     gui.add(this.orbitControls, 'autoRotate')
+  }
+
+  /**
+   * =============== Light ================
+   */
+  createDirectionalLight() {
+    this.directionalLight = new DirectionalLight(0xeeeeee, 2)
+    this.directionalLight.visible = true
+    this.directionalLight.castShadow = true
+    this.directionalLight.position.set(30, 10, 0)
+
+    this.directionalLightHelper = new DirectionalLightHelper(
+      this.directionalLight,
+      5
+    )
+    this.directionalLightHelper.visible = true
+
+    this.directionalCameraHelper = new CameraHelper(
+      this.directionalLight.shadow.camera
+    )
+    this.directionalCameraHelper.visible = false
+
+    this.scene.add(
+      this.directionalLight,
+      this.directionalLightHelper,
+      this.directionalCameraHelper
+    )
   }
 }
 

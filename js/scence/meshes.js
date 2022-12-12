@@ -1,6 +1,7 @@
 import {
   Mesh,
   MeshNormalMaterial,
+  MeshStandardMaterial,
   MeshBasicMaterial,
   MeshPhongMaterial,
   BoxGeometry,
@@ -30,10 +31,10 @@ const addMeshCube = (scene) => {
   const material = new MeshPhongMaterial({
     color: 0x049ef4,
     emissive: 0xb71cd9,
-    specular: 0x444444
+    specular: 0x444444,
   })
   const mesh = new Mesh(geometry, material)
-  mesh.position.x = -20
+  mesh.position.x = 0
   mesh.position.y = 2
   mesh.position.z = 10
   scene.add(mesh)
@@ -65,9 +66,14 @@ const addMeshSphere = (scene) => {
     data.thetaStart,
     data.thetaLength
   )
-  const material = new MeshBasicMaterial({ color: '#1a1aff' })
+  // const material = new MeshBasicMaterial({ color: '#1a1aff' })
+  const material = new MeshStandardMaterial({
+    color: 0x7777ff,
+    roughness: 0,
+    metalness: 0,
+  })
   const mesh = new Mesh(geometry, material)
-  mesh.position.x = -20
+  mesh.position.x = 0
   mesh.position.y = 2
   mesh.position.z = 6
   scene.add(mesh)
@@ -95,10 +101,15 @@ const addMeshCylinder = (scene) => {
     data.thetaStart,
     data.thetaLength
   )
-  const material = new MeshBasicMaterial({ color: '#1a1aff' })
+  // const material = new MeshBasicMaterial({ color: '#1a1aff' })
+  const material = new MeshStandardMaterial({
+    color: 0x7777ff,
+    roughness: 0,
+    metalness: 0,
+  })
   const mesh = new Mesh(geometry, material)
-  mesh.position.x = -24
-  mesh.position.y = 2
+  mesh.position.x = 0
+  mesh.position.y = 3
   mesh.position.z = 0
   scene.add(mesh)
 }
@@ -132,13 +143,13 @@ const addText = async (scene) => {
   const mesh = new Mesh(geometry, material)
   geometry.computeBoundingBox()
   geometry.boundingBox.getCenter(mesh.position).multiplyScalar(-1)
-  mesh.position.x = -20
+  mesh.position.x = 0
   mesh.position.y = 2
-  mesh.position.z = -2
+  mesh.position.z = -4
   scene.add(mesh)
 }
 
-/**
+/*
  * Xử lý khi người dùng chọn lại màu sắc trên GUI.
  * @param {THREE.Color} color Đối tượng màu sắc
  * @returns {Function} Hàm để truyền vào onChange của GUI
