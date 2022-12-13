@@ -13,7 +13,6 @@ import {
 } from 'three'
 import * as dat from 'dat.gui'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-
 import { addMeshes } from './meshes'
 
 class ThreejsSence {
@@ -25,10 +24,9 @@ class ThreejsSence {
     this.plane = this.createPlane()
     this.scene.add(this.plane)
 
-    const axesHelper = new AxesHelper(15)
+    const axesHelper = new AxesHelper(20)
     this.scene.add(axesHelper)
 
-    requestAnimationFrame(this.render.bind(this))
     this.handleResize()
 
     this.controls = this.createControls(this.scene)
@@ -40,6 +38,7 @@ class ThreejsSence {
     this.createDirectionalLight()
 
     addMeshes(this.scene)
+    requestAnimationFrame(this.render.bind(this))
   }
 
   /**
@@ -84,7 +83,7 @@ class ThreejsSence {
    * =================== Plane =========================
    */
   createPlane() {
-    const planeGeometry = new PlaneGeometry(50, 30, 1, 1)
+    const planeGeometry = new PlaneGeometry(60, 40, 1, 1)
     const planeMaterial = new MeshBasicMaterial({
       color: new Color('#bfe5f2'),
     })
@@ -206,7 +205,7 @@ class ThreejsSence {
     this.directionalLight = new DirectionalLight('#bfbfbf', 5)
     this.directionalLight.visible = true
     this.directionalLight.castShadow = true
-    this.directionalLight.position.set(35, 20, 0)
+    this.directionalLight.position.set(30, 30, 0)
 
     this.directionalLightHelper = new DirectionalLightHelper(
       this.directionalLight,
