@@ -13,6 +13,7 @@ import {
 } from 'three'
 import * as dat from 'dat.gui'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { addMeshes } from './meshes'
 
@@ -38,6 +39,8 @@ class ThreejsSence {
     this.createOrbitControlsGui()
 
     this.createDirectionalLight()
+
+    this.loadModel()
 
     addMeshes(this.scene)
   }
@@ -236,6 +239,14 @@ class ThreejsSence {
       this.directionalLightHelper,
       this.directionalCameraHelper
     )
+  }
+
+  async loadModel() {
+    const url = `./models/Flamingo.glb`
+    const gltfLoader = new GLTFLoader()
+    const gltf = await gltfLoader.loadAsync(url)
+    console.log(gltf)
+    requestAnimationFrame(this.render.bind(this))
   }
 }
 

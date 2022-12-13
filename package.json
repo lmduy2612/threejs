@@ -1,9 +1,18 @@
 {
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "dependencies": {
     "dat.gui": "^0.7.9",
     "three": "^0.146.0"
+  },
+  "staticFiles": {
+    "staticPath": "assets",
+    "watcherGlob": "**"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.11",
+    "postcss": "^8.2.15"
   }
 }

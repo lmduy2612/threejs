@@ -11,7 +11,6 @@ import {
 } from 'three'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
-
 import * as dat from 'dat.gui'
 
 const twoPi = Math.PI * 2
@@ -123,9 +122,7 @@ function loadFont(url) {
 }
 
 const addText = async (scene) => {
-  const font = await loadFont(
-    'https://static.lockex1987.com/learn-threejs/fonts/helvetiker/helvetiker_regular.typeface.json'
-  )
+  const font = await loadFont('./fonts/helvetiker_regular.typeface.json')
   const geometry = new TextGeometry('duylm', {
     font: font,
     size: 1.0,
