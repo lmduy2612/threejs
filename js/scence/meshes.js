@@ -17,10 +17,10 @@ const twoPi = Math.PI * 2
 
 // Add lists meshes
 export const addMeshes = (scene) => {
-  addMeshCube(scene)
-  addMeshCylinder(scene)
-  addMeshSphere(scene)
-  addText(scene)
+  // addMeshCube(scene)
+  // addMeshCylinder(scene)
+  // addMeshSphere(scene)
+  // addText(scene)
 }
 
 // Hình vuông
@@ -146,11 +146,6 @@ const addText = async (scene) => {
   scene.add(mesh)
 }
 
-/*
- * Xử lý khi người dùng chọn lại màu sắc trên GUI.
- * @param {THREE.Color} color Đối tượng màu sắc
- * @returns {Function} Hàm để truyền vào onChange của GUI
- */
 function handleColorChange(color) {
   return function (value) {
     if (typeof value === 'string') {

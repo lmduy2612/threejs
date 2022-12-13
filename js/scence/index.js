@@ -13,7 +13,6 @@ import {
 } from 'three'
 import * as dat from 'dat.gui'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { addMeshes } from './meshes'
 
@@ -40,8 +39,6 @@ class ThreejsSence {
 
     this.createDirectionalLight()
 
-    this.loadModel()
-
     addMeshes(this.scene)
   }
 
@@ -61,22 +58,8 @@ class ThreejsSence {
     const height = canvas.clientHeight
     const aspect = width / height
     const camera = new PerspectiveCamera(45, aspect, 0.1, 1000)
-    camera.position.set(40, 40, 30)
+    camera.position.set(60, 40, 60)
     camera.lookAt(this.scene.position)
-
-    camera.tick = (ms) => {
-      // Tính góc xoay theo thời gian
-      // Xoay một vòng hết 16 giây
-      const seconds = ms / 1000
-      const angle = (seconds * Math.PI) / 8
-
-      // Sử dụng các hàm sin và cos để di chuyển vòng tròn
-      camera.position.x = 30 * Math.sin(angle)
-      camera.position.z = 30 * Math.cos(angle)
-
-      // Luôn nhìn vào điểm trung tâm
-      camera.lookAt(this.scene.position)
-    }
 
     return camera
   }
@@ -103,7 +86,7 @@ class ThreejsSence {
   createPlane() {
     const planeGeometry = new PlaneGeometry(50, 30, 1, 1)
     const planeMaterial = new MeshBasicMaterial({
-      color: new Color('#99ff99'),
+      color: new Color('#bfe5f2'),
     })
     planeMaterial.opacity = 0.5
     planeMaterial.transparent = true
@@ -128,7 +111,8 @@ class ThreejsSence {
 
   createControlsGui() {
     const gui = new dat.GUI({
-      width: 300,
+      name: 'Camara',
+      width: 200,
     })
     gui.add(this.controls, 'numberOfObjects').listen().name('Number object')
     gui.add(this.controls, 'rotateCamera').name('Rotate camara')
@@ -139,13 +123,11 @@ class ThreejsSence {
     cameraPositionGui.add(this.camera.position, 'x', -size, size)
     cameraPositionGui.add(this.camera.position, 'y', -size, size)
     cameraPositionGui.add(this.camera.position, 'z', -size, size)
-    cameraPositionGui.open()
 
     const cameraProjectionGui = gui.addFolder('Camera projection')
     cameraProjectionGui.add(this.camera, 'fov', 0, 100).onChange(() => {
       this.camera.updateProjectionMatrix()
     })
-    cameraProjectionGui.open()
   }
 
   /**
@@ -208,7 +190,10 @@ class ThreejsSence {
       useAnimationLoop: true,
     }
 
-    const gui = new dat.GUI()
+    const gui = new dat.GUI({
+      name: 'OrbitControl',
+      width: 200,
+    })
     gui.add(this.controls, 'useAnimationLoop')
     gui.add(this.orbitControls, 'enableDamping')
     gui.add(this.orbitControls, 'autoRotate')
@@ -218,10 +203,10 @@ class ThreejsSence {
    * =============== Light ================
    */
   createDirectionalLight() {
-    this.directionalLight = new DirectionalLight(0xeeeeee, 2)
+    this.directionalLight = new DirectionalLight('#bfbfbf', 5)
     this.directionalLight.visible = true
     this.directionalLight.castShadow = true
-    this.directionalLight.position.set(30, 10, 0)
+    this.directionalLight.position.set(35, 20, 0)
 
     this.directionalLightHelper = new DirectionalLightHelper(
       this.directionalLight,
@@ -239,14 +224,6 @@ class ThreejsSence {
       this.directionalLightHelper,
       this.directionalCameraHelper
     )
-  }
-
-  async loadModel() {
-    const url = `./models/Flamingo.glb`
-    const gltfLoader = new GLTFLoader()
-    const gltf = await gltfLoader.loadAsync(url)
-    console.log(gltf)
-    requestAnimationFrame(this.render.bind(this))
   }
 }
 
