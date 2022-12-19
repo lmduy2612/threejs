@@ -45,6 +45,139 @@ export const addHouse = (scene) => {
   addMeshHouseStair4(scene)
   addMeshHouseStair5(scene)
   addMeshHouseStair6(scene)
+
+  // Nóc
+  addRoofHouse1(scene)
+  addRoofHouse2(scene)
+  addRoofHouse5(scene)
+  addRoofHouse6(scene)
+
+  // Cầu thang sau
+  addMeshHouseBottomStair1(scene)
+}
+
+const addRoofHouse1 = (scene) => {
+  const cols = [
+    {
+      x: -8,
+      y: -6,
+    },
+    {
+      x: -8,
+      y: 2,
+    },
+    {
+      x: 0,
+      y: -6,
+    },
+    {
+      x: 0,
+      y: 2,
+    },
+  ]
+  cols.forEach((item) => {
+    const geometry = new BoxGeometry(1, 4, 1)
+    const material = new MeshNormalMaterial()
+    const mesh = new Mesh(geometry, material)
+    mesh.position.x = item.x
+    mesh.position.y = 34
+    mesh.position.z = item.y
+    scene.add(mesh)
+  })
+}
+
+const addRoofHouse2 = (scene) => {
+  const cols = [
+    {
+      x: -12,
+      y: 8,
+    },
+    {
+      x: -12,
+      y: 12,
+    },
+    {
+      x: -6,
+      y: 8,
+    },
+    {
+      x: -6,
+      y: 12,
+    },
+    {
+      x: 0,
+      y: 8,
+    },
+    {
+      x: 0,
+      y: 12,
+    },
+    {
+      x: 6,
+      y: 12,
+    },
+    {
+      x: 6,
+      y: 8,
+    },
+  ]
+  cols.forEach((item) => {
+    const geometry = new BoxGeometry(1, 4, 1)
+    const material = new MeshNormalMaterial()
+    const mesh = new Mesh(geometry, material)
+    mesh.position.x = item.x
+    mesh.position.y = 32
+    mesh.position.z = item.y
+    scene.add(mesh)
+  })
+}
+
+const addRoofHouse5 = (scene) => {
+  const base = {
+    x: 12,
+    z: 16,
+  }
+  for (let i = 0; i <= 2; i = i + 0.25) {
+    const geometry = new BoxGeometry(base.x - i, 0.25, base.z - i)
+    const material = new MeshNormalMaterial()
+    const mesh = new Mesh(geometry, material)
+    mesh.position.x = -4
+    mesh.position.y = 34 + i
+    mesh.position.z = -2
+    scene.add(mesh)
+  }
+}
+
+const addRoofHouse6 = (scene) => {
+  const base = {
+    x: 24,
+    z: 6,
+  }
+  for (let i = 0; i <= 2; i = i + 0.25) {
+    const geometry = new BoxGeometry(base.x - i, 0.25, base.z - i)
+    const material = new MeshNormalMaterial()
+    const mesh = new Mesh(geometry, material)
+    mesh.position.x = -3
+    mesh.position.y = 34 + i
+    mesh.position.z = 10
+    scene.add(mesh)
+  }
+}
+
+const addMeshHouseBottomStair1 = (scene) => {
+  const base = {
+    x: 8,
+    z: 8,
+  }
+  for (let i = 0; i <= 2; i = i + 0.25) {
+    const geometry = new BoxGeometry(base.x - i, 0.25, base.z - i)
+    const material = new MeshNormalMaterial()
+    const mesh = new Mesh(geometry, material)
+    mesh.position.x = -16
+    mesh.position.y = 0 + i
+    mesh.position.z = -10
+    scene.add(mesh)
+  }
 }
 
 const addMeshHouse = (scene) => {
@@ -58,12 +191,12 @@ const addMeshHouse = (scene) => {
 }
 
 const addMeshHouseB = (scene) => {
-  const geometry = new BoxGeometry(24, 32, 7)
+  const geometry = new BoxGeometry(20, 32, 7)
   const material = new MeshNormalMaterial()
   const mesh = new Mesh(geometry, material)
-  mesh.position.x = -6
+  mesh.position.x = -4
   mesh.position.y = 16
-  mesh.position.z = -9.5
+  mesh.position.z = -10
   scene.add(mesh)
 }
 
