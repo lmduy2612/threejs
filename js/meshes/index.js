@@ -26,7 +26,7 @@ export const addMeshes = (scene) => {
 
   // addMeshCylinder(scene)
   // addMeshSphere(scene)
-  // addText(scene)
+  addText(scene)
 }
 
 // Hình cầu
@@ -108,26 +108,26 @@ function loadFont(url) {
 
 const addText = async (scene) => {
   const font = await loadFont('./fonts/helvetiker_regular.typeface.json')
-  const geometry = new TextGeometry('duylm', {
+  const geometry = new TextGeometry('JobhopIn', {
     font: font,
-    size: 1.0,
+    size: 1.4,
     height: 0.2,
-    curveSegments: 12,
+    curveSegments: 4,
     bevelEnabled: true,
     bevelThickness: 0.15,
-    bevelSize: 0.3,
-    bevelSegments: 5,
+    bevelSize: 0.2,
+    bevelSegments: 1,
   })
   const material = new MeshPhongMaterial({
     side: BackSide,
-    color: '#1a1aff',
+    color: '#fff',
   })
   const mesh = new Mesh(geometry, material)
-  geometry.computeBoundingBox()
-  geometry.boundingBox.getCenter(mesh.position).multiplyScalar(-1)
-  mesh.position.x = 0
-  mesh.position.y = 2
-  mesh.position.z = -4
+  geometry.center()
+  geometry.rotateY(33)
+  mesh.position.x = 14
+  mesh.position.y = 29
+  mesh.position.z = 0
   scene.add(mesh)
 }
 
