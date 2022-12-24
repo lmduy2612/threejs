@@ -57,7 +57,7 @@ class ThreejsSence {
     const height = canvas.clientHeight
     const aspect = width / height
     const camera = new PerspectiveCamera(45, aspect, 0.1, 1000)
-    camera.position.set(90, 40, 10)
+    camera.position.set(120, 30, 60)
     camera.lookAt(this.scene.position)
 
     return camera

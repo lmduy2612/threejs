@@ -54,6 +54,27 @@ export const addHouse = (scene) => {
 
   // Cầu thang sau
   addMeshHouseBottomStair1(scene)
+
+  // Cửa sổ
+  addMeshWindow(scene)
+
+  // Cửa sau
+}
+
+const addMeshWindow = (scene) => {
+  [15.5, -13.5].map(z => {
+    [24, 18, 12].map(y => {
+      [3, -3, -9].map((x) => {
+        const geometry = new BoxGeometry(4, 4, 1)
+        const material = new MeshNormalMaterial()
+        const mesh = new Mesh(geometry, material)
+        mesh.position.x = x
+        mesh.position.y = y
+        mesh.position.z = z
+        scene.add(mesh)
+      })
+    })
+  })
 }
 
 const addRoofHouse1 = (scene) => {
