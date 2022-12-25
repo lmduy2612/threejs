@@ -14,6 +14,7 @@ import {
 import * as dat from 'dat.gui'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { addMeshes } from './meshes'
+import { loadModels } from './models'
 
 class ThreejsSence {
   constructor(canvas) {
@@ -29,7 +30,6 @@ class ThreejsSence {
 
     this.handleResize()
 
-    this.controls = this.createControls(this.scene)
     this.createControlsGui()
 
     this.createOrbitControls()
@@ -38,6 +38,7 @@ class ThreejsSence {
     this.createDirectionalLight()
 
     addMeshes(this.scene)
+    loadModels(this.scene, () => requestAnimationFrame(this.render.bind(this)))
     requestAnimationFrame(this.render.bind(this))
   }
 
@@ -100,21 +101,12 @@ class ThreejsSence {
   /**
    * =================== Controls =========================
    */
-  createControls(scene) {
-    const controls = {
-      numberOfObjects: scene.children.length,
-      rotateCamera: false,
-    }
-    return controls
-  }
 
   createControlsGui() {
     const gui = new dat.GUI({
       name: 'Camara',
       width: 200,
     })
-    gui.add(this.controls, 'numberOfObjects').listen().name('Number object')
-    gui.add(this.controls, 'rotateCamera').name('Rotate camara')
 
     // Camera
     const size = 100

@@ -28,6 +28,7 @@ export const addHouse = (scene) => {
   addMeshHouseBLobby4(scene)
   addMeshHouseBLobby5(scene)
   addMeshHouseBLobby6(scene)
+  addLobbyHouseB(scene)
 
   // Nhà phải
   addMeshHouseC(scene)
@@ -470,3 +471,14 @@ const addMeshHouseBLobby6 = (scene) => {
   mesh.position.z = -13
   scene.add(mesh)
 }
+
+const addLobbyHouseB = (scene) => {
+  const geometry = new BoxGeometry(3, 1, 7)
+  const material = new MeshNormalMaterial()
+  const mesh = new Mesh(geometry, material)
+  mesh.position.x = 8
+  mesh.position.y = 1
+  mesh.position.z = -10
+  scene.add(mesh)
+}
+

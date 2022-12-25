@@ -5,14 +5,12 @@
   },
   "dependencies": {
     "dat.gui": "^0.7.9",
+    "parcel-plugin-asset-copier": "^1.1.1",
     "three": "^0.146.0"
-  },
-  "staticFiles": {
-    "staticPath": "assets",
-    "watcherGlob": "**"
   },
   "devDependencies": {
     "cssnano": "^4.1.11",
     "postcss": "^8.2.15"
-  }
+  },
+  "assetsPath": "assets"
 }
