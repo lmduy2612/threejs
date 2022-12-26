@@ -39,6 +39,7 @@ class ThreejsSence {
 
     addMeshes(this.scene)
     loadModels(this.scene, () => requestAnimationFrame(this.render.bind(this)))
+
     requestAnimationFrame(this.render.bind(this))
   }
 
@@ -194,10 +195,10 @@ class ThreejsSence {
    * =============== Light ================
    */
   createDirectionalLight() {
-    this.directionalLight = new DirectionalLight('#bfbfbf', 5)
+    this.directionalLight = new DirectionalLight('#668cff', 4)
     this.directionalLight.visible = true
     this.directionalLight.castShadow = true
-    this.directionalLight.position.set(30, 30, 0)
+    this.directionalLight.position.set(100, 60, 0)
 
     this.directionalLightHelper = new DirectionalLightHelper(
       this.directionalLight,
