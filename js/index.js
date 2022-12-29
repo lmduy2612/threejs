@@ -38,7 +38,7 @@ class ThreejsSence {
     this.createDirectionalLight()
 
     addMeshes(this.scene)
-    loadModels(this.scene, () => requestAnimationFrame(this.render.bind(this)))
+    loadModels(this.scene)
 
     requestAnimationFrame(this.render.bind(this))
   }
@@ -115,11 +115,13 @@ class ThreejsSence {
     cameraPositionGui.add(this.camera.position, 'x', -size, size)
     cameraPositionGui.add(this.camera.position, 'y', -size, size)
     cameraPositionGui.add(this.camera.position, 'z', -size, size)
+    cameraPositionGui.open()
 
     const cameraProjectionGui = gui.addFolder('Camera projection')
     cameraProjectionGui.add(this.camera, 'fov', 0, 100).onChange(() => {
       this.camera.updateProjectionMatrix()
     })
+    cameraProjectionGui.open()
   }
 
   /**

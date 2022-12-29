@@ -1,31 +1,30 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-export const loadModels = (scene, callback) => {
-  loadTable(scene, callback)
-  loadTable2(scene, callback)
+export const loadModels = (scene) => {
+  loadTable(scene)
+  loadTable2(scene)
 
-  loadPug1(scene, callback)
-  loadPug2(scene, callback)
-  loadPug3(scene, callback)
+  loadPug1(scene)
+  loadPug2(scene)
+  loadPug3(scene)
 
-  loadTree(scene, callback)
+  loadTree(scene)
 
-  loadCar(scene, callback)
+  loadCar(scene)
 
-  loadMan(scene, callback)
+  loadMan(scene)
 }
 
-const loadTable = async (scene, callback) => {
+const loadTable = async (scene) => {
   const gltfLoader = new GLTFLoader()
   const gltf = await gltfLoader.loadAsync('./models/Table.glb')
   const mesh = gltf.scene.children[0]
   mesh.position.set(9, 1.5, -8)
   mesh.scale.set(3, 5, -10)
   scene.add(mesh)
-  callback()
 }
 
-const loadTable2 = async (scene, callback) => {
+const loadTable2 = async (scene) => {
   const gltfLoader = new GLTFLoader()
   const gltf = await gltfLoader.loadAsync('./models/Table.glb')
   const mesh = gltf.scene.children[0]
@@ -35,7 +34,7 @@ const loadTable2 = async (scene, callback) => {
   callback()
 }
 
-const loadPug1 = async (scene, callback) => {
+const loadPug1 = async (scene) => {
   const gltfLoader = new GLTFLoader()
   const gltf = await gltfLoader.loadAsync('./models/Pug.glb')
   const mesh = gltf.scene.children[0]
@@ -45,7 +44,7 @@ const loadPug1 = async (scene, callback) => {
   callback()
 }
 
-const loadPug2 = async (scene, callback) => {
+const loadPug2 = async (scene) => {
   const gltfLoader = new GLTFLoader()
   const gltf = await gltfLoader.loadAsync('./models/Pug.glb')
   const mesh = gltf.scene.children[0]
@@ -55,7 +54,7 @@ const loadPug2 = async (scene, callback) => {
   callback()
 }
 
-const loadPug3 = async (scene, callback) => {
+const loadPug3 = async (scene) => {
   const gltfLoader = new GLTFLoader()
   const gltf = await gltfLoader.loadAsync('./models/Pug.glb')
   const mesh = gltf.scene.children[0]
@@ -65,7 +64,7 @@ const loadPug3 = async (scene, callback) => {
   callback()
 }
 
-const loadTree = async (scene, callback) => {
+const loadTree = async (scene) => {
   const gltfLoader = new GLTFLoader()
   await [27, 20, 13, 6, -1, -8, -15, -22, -29].map(async (x) => {
     const gltf = await gltfLoader.loadAsync('./models/Tree.glb')
@@ -77,7 +76,7 @@ const loadTree = async (scene, callback) => {
   })
 }
 
-const loadCar = async (scene, callback) => {
+const loadCar = async (scene) => {
   const gltfLoader = new GLTFLoader()
   await [7, 16].map(async (x) => {
     const gltf = await gltfLoader.loadAsync('./models/SportsCar.glb')
@@ -89,7 +88,7 @@ const loadCar = async (scene, callback) => {
   })
 }
 
-const loadMan = async (scene, callback) => {
+const loadMan = async (scene) => {
   const gltfLoader = new GLTFLoader()
   await [
     { x: 15, z: -8 },
